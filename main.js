@@ -1,10 +1,15 @@
 var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
 
     // form submit event
     form.addEventListener('submit', addItem);
     //delete event
     itemList.addEventListener('click', removeItem)
+    //filter event
+    filter.addEventListener('keyup', filterItems);
+
+
     // add item
     function addItem(e) {
         e.preventDefault();
@@ -53,5 +58,27 @@ var itemList = document.getElementById('items');
                  itemList.removeChild(li);
             }
         }       
+     }
+
+
+     // filter items
+     function filterItems(e){
+        // covert to LC
+        var text= e.target.value.toLowerCase();
+        var items = itemList.getElementsByTagName('li');
+        // covert to  an array
+        Array.from(items).forEach(function(item){
+
+            var itemName = item.firstChild.textContent;
+            if(itemName.toLowerCase().indexOf(text)!= -1){
+
+                item.style.display = 'block';
+            }
+            else{
+                item.style.display = 'none'
+            }
+
+
+        });
      }
     
